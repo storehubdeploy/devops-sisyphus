@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    label: slave
+spec:
+  containers:
+  - name: docker
+    image: docker
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: '/var/run/docker.sock'
+      name: docker-socket
+  - name: helm
+    image: cnych/helm
+    command:
+    - cat
+    tty: true
+  volumes:
+  - name: docker-socket
+    hostPath:
+      path: '/var/run/docker.sock'
+  securityContext:
+    runAsUser: 0

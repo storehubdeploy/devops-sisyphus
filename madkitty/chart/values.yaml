@@ -1,0 +1,32 @@
+# image part
+image:
+  registry: harbor.mymyhub.com
+  repository: devops/madkitty-api
+  pullPolicy: Always
+  pullSecrets: []
+  #   - regcred
+
+replicaCount: 1
+
+# deploy Strategy
+deploymentStrategy:
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+  type: RollingUpdate
+
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 80
+      protocol: TCP
+      targetPort: 80
+
+resources: {}
+  # limits:
+  #   cpu: 400m
+  #   memory: 1Gi
+  # requests:
+  #   cpu: 200m
+  #   memory: 512Mi
